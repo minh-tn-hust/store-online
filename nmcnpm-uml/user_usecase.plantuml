@@ -1,0 +1,37 @@
+@startuml
+usecase "Đăng nhập" as login
+package "Lễ tân" {
+    usecase "Nạp tiền" as perchase
+    usecase "Xác thực thông tin người dùng" as confirmAccount
+    usecase "Xem danh sách người dùng" as listUser
+    usecase "Phân tích doanh thu" as analysis
+    login <.. perchase : include
+    login <.. confirmAccount : include
+    login <.. listUser : include
+    login <.. analysis : include
+}
+package "Nhân viên quản lý bốt" {
+    usecase "Xác nhận lấy xe" as confirmBooking
+    usecase "Xác nhận  trả xe" as confirmReturn
+    usecase "Xem danh sách xe" as listBike
+    usecase "Tìm kiếm xe" as searchBike
+    confirmBooking ..> login : include
+    confirmReturn ..> login : include
+    listBike ..> login : include
+    searchBike .right.> listBike : extend
+    
+}
+package "Nhân viên" {
+    actor "Lễ tân" as recept
+    recept -down-> perchase
+    recept -down-> confirmAccount
+    recept -down-> listUser
+    recept -down-> analysis
+
+    actor "Nhân viên \nquản lý bốt" as staff
+    staff -up-> confirmBooking
+    staff -up-> confirmReturn
+    staff -up-> listBike
+}
+
+@enduml

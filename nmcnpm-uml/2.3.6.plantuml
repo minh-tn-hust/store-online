@@ -1,0 +1,17 @@
+
+@startuml
+left to right direction
+skinparam Shadowing false
+
+actor "Nhân viên \nlễ tân" as recept 
+usecase "Thống kê doanh thu" as analysis
+usecase "Thống kê người \ndùng nập tiền" as charge
+usecase "Thống kê người \ndùng tiêu tiền" as pay
+
+recept -> analysis
+    charge .u.> analysis: <<extend>> 
+    pay .u.> analysis: <<extend>>
+
+
+
+@enduml

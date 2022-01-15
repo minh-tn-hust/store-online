@@ -1,0 +1,32 @@
+@startuml
+left to right direction
+actor "Người dùng" as User
+
+package "Hệ thống" {
+    usecase "Đăng nhập" as login
+    usecase "Đăng kí" as register
+    usecase "Thuê xe" as booking
+    usecase "Trả xe" as return
+    usecase "Lịch sử thuê xe" as bookingHistory
+    usecase "Xem thông tin cá nhân" as privateInfo
+    usecase "Nạp tiền" as perchase
+    usecase "Đăng xuất" as logout
+    usecase "Kích hoạt tài khoản" as activeAccount
+    register ..> login : include
+    booking ..> login : include
+    return ..> login : include
+    bookingHistory ..> login : include
+    privateInfo ..> login : include
+}
+
+User -- privateInfo
+User -- logout
+User -- login
+User -- register
+User -- activeAccount
+User -- booking
+User -- return
+User -- perchase
+User -- bookingHistory
+
+@enduml

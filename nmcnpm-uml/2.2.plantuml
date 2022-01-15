@@ -1,0 +1,59 @@
+@startuml
+left to right direction
+skinparam actorStyle awesome
+skinparam Shadowing false
+
+skinparam ArrowFontStyle normal
+skinparam ArrowFontName Courier
+skinparam ArrowFontSize 12
+
+title Biểu đồ tổng quan\n
+
+actor "Người dùng" as user
+
+package "Hệ thống" {
+    usecase "Thuê xe" as userBooking
+    usecase "Trả xe" as userReturn
+    usecase "Xem xe" as userWatchBike
+    usecase "Nạp tiền" as userCharge
+
+    usecase "Xác nhận \nngười dùng trả xe" as staffConfirmReturn
+    usecase "Xac nhận \nngười dùng lấy xe" as staffConfirmBooking
+    usecase "Xem trạng \nthái xe" as staffWatchStatus
+
+    usecase "Xác nhận nạp tiền" as receptConfirmCharge
+    usecase "Xác thực tài khoản" as recpetConfirmAccount
+
+    usecase "Quản lý xe" as adminBike
+    usecase "Quản lý bốt xe" as adminStation
+    usecase "Quản lý nhân viên" as adminStaff
+    usecase "Thống kê" as adminAnalysis
+}
+
+actor "Nhân viên\nlễ tân" as recept
+actor "Nhân viên\n quản lý" as staff
+actor "Admin" as admin
+
+user --> userBooking
+user --> userReturn
+user --> userWatchBike
+user --> userCharge
+
+admin -down-> adminBike
+admin -down-> adminStaff
+admin -down-> adminAnalysis
+admin -down-> adminStation
+
+recept -up-> receptConfirmCharge
+recept -up-> recpetConfirmAccount
+
+staff -up--> staffWatchStatus
+staff -up--> staffConfirmBooking
+staff -up--> staffConfirmReturn
+
+userBooking ..> staffConfirmBooking : <<include>>
+userReturn ..> staffConfirmReturn : <<include>>
+userCharge ..> receptConfirmCharge : <<include>>
+
+
+@enduml

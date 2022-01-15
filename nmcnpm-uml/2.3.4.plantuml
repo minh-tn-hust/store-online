@@ -1,0 +1,29 @@
+@startuml
+left to right direction
+skinparam Shadowing false
+
+actor "Admin" as admin
+
+usecase "Danh sách \nloại xe" as listBike
+usecase "Xem thông tin \n loại xe" as bikeInfo 
+usecase "Chỉnh sửa \n loại bãi xe" as editBike 
+usecase "Thêm xe \nvào các bốt" as addBikeToStation
+usecase "Thêm loại xe" as addBike
+usecase "Xóa loại xe" as deleteBike
+usecase "Đăng nhập" as login
+
+admin --> listBike
+    bikeInfo .u.> listBike : <<extend>>
+    editBike .u.> bikeInfo : <<extend>>
+    addBikeToStation .u.> bikeInfo : <<extend>>
+    deleteBike .u.> bikeInfo : <<extend>>
+admin --> addBike
+admin --> deleteBike
+admin --> login
+    listBike ..> login : <<include>>
+    addBike ..> login : <<include>>
+    deleteBike .u.> login : <<include>>
+
+
+
+@enduml

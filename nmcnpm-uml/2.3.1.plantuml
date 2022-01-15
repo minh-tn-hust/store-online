@@ -1,0 +1,28 @@
+@startuml
+left to right direction
+skinparam Shadowing false
+
+actor "Admin" as admin
+
+usecase "Danh sách\nnhân viên" as listStaff
+usecase "Phân loại\n nhân viên" as separateStaff 
+usecase "Tìm kiếm\n nhân viên" as searchStaff
+usecase "CRUD nhân viên" as CRUDStaff
+usecase "Đăng nhập" as login
+usecase "Đăng xuất" as logout
+usecase "Thay đổi\n mật khẩu" as changePassword
+
+admin --> listStaff
+    searchStaff .u.> listStaff : <<extend>>
+    separateStaff .u.> listStaff : <<extend>>
+admin --> CRUDStaff
+admin --> changePassword
+admin ---> login
+admin --> logout
+
+CRUDStaff ..> login : <<include>>
+changePassword ..> login : <<include>>
+listStaff ..> login : <<include>>
+
+
+@enduml

@@ -1,0 +1,35 @@
+@startuml
+left to right direction
+skinparam Shadowing false
+
+actor "Người dùng" as user 
+usecase "Thuê xe" as userBooking
+usecase "Chọn bốt xe" as chooseStation
+usecase "Chọn loại xe" as chooseBike
+usecase "Xem thông tin loại xe" as bikeInfo
+usecase "Xác nhận hóa đơn" as confirmBill
+
+usecase "Lấy xe" as userGetBike
+usecase "Trả xe" as userReturnBike
+
+actor "Người quản lý bốt" as staff
+usecase "Xác nhận\n lấy xe" as confirmBooking
+usecase "Xác nhận\n trả xe" as confirmReturn
+
+user --> userBooking
+    chooseStation <.u. userBooking : <<include>>
+    chooseBike <.. userBooking : <<include>>
+    chooseBike .u.> chooseStation : <<include>>
+    confirmBill <.u. userBooking : <<include>>
+    bikeInfo ..> chooseBike : <<extend>>
+
+userBooking ..> userGetBike : <<extend>>
+    userGetBike ..> confirmBooking : <<include>>
+userBooking ..> userReturnBike : <<extend>>
+    userReturnBike ..> confirmReturn : <<include>>
+staff -u-> confirmBooking
+staff -u-> confirmReturn
+
+
+
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+left to right direction
+skinparam Shadowing false
+
+actor "Lễ tân" as recept
+
+usecase "Danh sách \ntài khoản \nngười dùng" as listUser 
+usecase "Xem thống \n tài khoản người dùng" as userInfo
+usecase "Chỉnh sửa \nthông tin người dùng" as  editInfo
+usecase "Xác nhận thông tin người dùng" as confirmAccount
+usecase "Xóa tài khoản người dùng" as deleteAccount
+usecase "Đăng nhập" as login
+
+recept --> listUser
+    userInfo .l.> listUser : <<extend>>
+    editInfo .l.> userInfo : <<extennd>>
+    confirmAccount .u.> userInfo : <<extend>>
+    deleteAccount .d.> confirmAccount : <<extend>>
+recept --> login
+    listUser .u.> login : <<include>>
+
+@enduml

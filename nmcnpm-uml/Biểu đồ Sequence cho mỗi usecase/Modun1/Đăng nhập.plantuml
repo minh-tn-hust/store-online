@@ -1,0 +1,34 @@
+@startuml
+actor "Người dùng" as user
+participant "Giao diện" as ui
+control "Server" as server
+database "MongoDB" as database
+
+user -> ui: Vào giao diện đăng nhập
+activate ui
+user -> ui: Nhập thông tin đăng nhập
+ui -> ui: Kiểm tra đầu vào
+ui -> server: Gửi thông tin đăng nhập cho server
+activate ui
+activate server
+server -> database : Truy vấn thông tin đăng nhập
+activate database
+database -> server: Thông tin người dùng
+deactivate database
+server -> server: Xác thực thông tin
+alt Xác thực thành công
+    server -> server: Tạo phiên đăng nhập
+    server -> ui: Thông tin phiên đăng nhập
+    deactivate ui
+    ui -> ui: Thay đổi giao diện
+    ui -> user: Đăng nhập thành công
+    deactivate ui
+    deactivate user
+else Xác thực thất bại
+    server -> ui: Thông tin đăng nhập
+    activate ui
+    ui -> ui: Hiển thị thông tin đăng nhập sai
+    ui -> user: Đăng nhập thất bại
+    deactivate ui
+    deactivate server
+end
